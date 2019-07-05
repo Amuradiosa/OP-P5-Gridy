@@ -32,11 +32,11 @@ class AdjustImageViewController: UIViewController, UIGestureRecognizerDelegate {
             let image = renderer.image { (ctx) in
                 if view.frame.width < view.frame.height {
                     let squareDimension = view.frame.width*0.9
-                    cropImageBoxView.frame = CGRect(x: 0.0, y: 0.0, width: squareDimension, height: squareDimension)
+                    cropImageBoxView.frame = CGRect(x: (view.frame.width - squareDimension)/2, y: (view.frame.height - squareDimension)/2, width: squareDimension, height: squareDimension)
                     drawGrid(context: ctx, squareDimension: squareDimension)
                 } else {
                     let squareDimension = view.frame.height*0.9
-                    cropImageBoxView.frame = CGRect(x: 0.0, y: 0.0, width: squareDimension, height: squareDimension)
+                    cropImageBoxView.frame = CGRect(x: (view.frame.width - squareDimension)/2, y: (view.frame.height - squareDimension)/2, width: squareDimension, height: squareDimension)
                     drawGrid(context: ctx, squareDimension: squareDimension)
                 }
             }
