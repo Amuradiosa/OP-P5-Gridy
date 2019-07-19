@@ -127,7 +127,7 @@
                                 </state>
                                 <connections>
                                     <action selector="startButton:" destination="pY0-NP-Sm4" eventType="touchUpInside" id="WBA-uR-kzM"/>
-                                    <segue destination="zvj-VA-oeY" kind="show" identifier="goToGameViewController" id="h1h-ZM-jWS"/>
+                                    <segue destination="zvj-VA-oeY" kind="show" identifier="goToGameViewController" id="U0L-B1-1ql"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uhb-a6-er5" userLabel="Crop image box view">
@@ -205,12 +205,33 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XcG-dZ-vfm">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="290"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="285"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mj1-mv-tZU">
+                                                <rect key="frame" x="315" y="254" width="36" height="28"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" image="Gridy-lookup">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="peekButtonPressed:" destination="zvj-VA-oeY" eventType="touchUpInside" id="5DZ-yo-k0k"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ASd-3S-zrl">
+                                                <rect key="frame" x="260" y="243" width="50" height="50"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" image="audio on icon"/>
+                                                <state key="selected" image="audio off icon"/>
+                                                <connections>
+                                                    <action selector="soundButtonPressed:" destination="zvj-VA-oeY" eventType="touchUpInside" id="FE3-xb-ibe"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hbs-4l-dhS">
-                                        <rect key="frame" x="42" y="323" width="270" height="270"/>
+                                        <rect key="frame" x="27" y="293" width="300" height="300"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                 </subviews>
@@ -223,12 +244,29 @@
                     <connections>
                         <outlet property="containingView" destination="ep8-p4-95x" id="B31-Nq-Le0"/>
                         <outlet property="gridView" destination="hbs-4l-dhS" id="D1q-E0-quN"/>
+                        <outlet property="soundButton" destination="ASd-3S-zrl" id="lCD-9j-hQt"/>
                         <outlet property="tilesContainerView" destination="XcG-dZ-vfm" id="1rl-0y-lxT"/>
+                        <segue destination="yzR-of-HJs" kind="show" identifier="goToShare" id="cfw-YI-oYc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NGe-OR-Dsk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3528.8000000000002" y="133.5832083958021"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="432-ub-8df">
+            <objects>
+                <viewController id="yzR-of-HJs" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KSC-9l-bKw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="qOA-2S-Lbc"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="htc-wd-200" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4294" y="134"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Rtp-B8-ZVd">
@@ -251,7 +289,10 @@
     <resources>
         <image name="Gridy-camera" width="36" height="28"/>
         <image name="Gridy-library" width="36" height="28"/>
+        <image name="Gridy-lookup" width="36" height="28"/>
         <image name="Gridy-name-large-green" width="165" height="80"/>
         <image name="Gridy-name-small-grey" width="70" height="34"/>
+        <image name="audio off icon" width="50" height="50"/>
+        <image name="audio on icon" width="50" height="50"/>
     </resources>
 </document>

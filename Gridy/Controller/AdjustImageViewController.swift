@@ -23,7 +23,7 @@ class AdjustImageViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func startButton(_ sender: Any) {
-        performSegue(withIdentifier: "goToGameViewController", sender: self)
+//        performSegue(withIdentifier: "goToGameViewController", sender: self)
         userChosenImage.transform = .identity
     }
     
@@ -66,11 +66,18 @@ class AdjustImageViewController: UIViewController, UIGestureRecognizerDelegate {
         return screenShot
     }
     
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "goToGameViewController" {
+//            let destination = segue.destination as! GameViewController
+//            destination.gameImage = cropImage()
+//        }
+//    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToGameViewController" {
-            let destination = segue.destination as! GameViewController
-            destination.gameImage = cropImage()
-        }
+                let destination = segue.destination as! GameViewController
+                destination.gameImage = cropImage()
+            }
     }
     
     func configure() {

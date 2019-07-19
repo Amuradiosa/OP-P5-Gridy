@@ -7,16 +7,21 @@
 //
 
 import UIKit
+import AVFoundation
 
 class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavigationControllerDelegate {
     
-    var gameImage = UIImage()
-    var imageArray = [UIImage]()
-    var tileViews = [TileAttributes]()
+    var gameImage     = UIImage()
+    var imageArray    = [UIImage]()
+    var tileViews     = [TileAttributes]()
+    var gridLocations = [CGPoint]()
+    var intialImageViewOffset = CGPoint()
+    var audioPlayer : AVAudioPlayer!
     
     @IBOutlet weak var containingView: UIView!
     @IBOutlet weak var gridView: UIImageView!
     @IBOutlet weak var tilesContainerView: UIView!
+    @IBOutlet weak var soundButton: UIButton!
     
     
     
@@ -24,10 +29,29 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
     @IBAction func newGameButton(_ sender: Any) {
     }
     
+    @IBAction func soundButtonPressed(_ sender: Any) {
+        soundButton.isSelected = !soundButton.isSelected
+    }
+    
+    @IBAction func peekButtonPressed(_ sender: Any) {
+    }
+    
+    func play(sound: String) {
+        let soundURL = Bundle.main.url(forResource: sound, withExtension: "wav")
+        do {
+            try audioPlayer = AVAudioPlayer(contentsOf: soundURL!)
+        } catch {
+            print(error)
+        }
+        audioPlayer.play()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+//        drawing()
+    
         sliceImage(image: gameImage)
-        
+        getGridLocations()
     }
     
     func sliceImage(image: UIImage) {
@@ -36,7 +60,6 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
         let height = imageToSlice.size.height/4
         // Create a scale conversion factor to convert from points to pixles
         let scale = (imageToSlice.scale)
-        var imageArray = [UIImage]()
         for x in 0..<4 {
             for y in 0..<4 {
                 UIGraphicsBeginImageContext(CGSize(width: width, height: height))
@@ -87,10 +110,111 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
     }
 
     @objc func moveImage(_ sender: UIPanGestureRecognizer) {
-        
+        sender.view?.superview?.bringSubviewToFront(sender.view!)
+        let translation = sender.translation(in: sender.view?.superview)
+        if sender.state == .began {
+            intialImageViewOffset = (sender.view?.frame.origin)!
+        }
+        let position = CGPoint(x: translation.x + intialImageViewOffset.x - (sender.view?.frame.origin.x)!, y: translation.y + intialImageViewOffset.y - (sender.view?.frame.origin.y)!)
+        let postionInSuperView = sender.view?.convert(position, to: sender.view?.superview)
+        sender.view?.transform = (sender.view?.transform.translatedBy(x: position.x, y: position.y))!
+        if sender.state == .ended {
+            let (nearTile, snapPosition) = isTileNearGrid(droppingPosition: postionInSuperView!)
+            let t = sender.view as! TileAttributes
+            if nearTile {
+                sender.view?.frame.origin = gridLocations[snapPosition]
+                if soundButton.isSelected != true {
+                    play(sound: "correct")
+                }
+                if String(snapPosition) == t.accessibilityLabel {
+                    t.isTileInCorrectLocation = true
+                } else {
+                    t.isTileInCorrectLocation = false
+                }
+            } else {
+                sender.view?.frame.origin = t.originalTileLocation
+                t.isTileInCorrectLocation = false
+                if soundButton.isSelected != true {
+                    play(sound: "wrong")
+                }
+            }
+            checkIfGameComplete()
+        }
+    }
+    
+    func checkIfGameComplete() {
+        if allTilesInCorrectPosition() {
+            performSegue(withIdentifier: "goToShare", sender: self)
+        }
+    }
+    func allTilesInCorrectPosition() -> Bool {
+        for tile in tileViews {
+            if tile.isTileInCorrectLocation == false {
+                return false
+            }
+        }
+        return true
+    }
+    
+    func isTileNearGrid(droppingPosition: CGPoint) -> (Bool,Int) {
+        for x in 0..<gridLocations.count {
+            let gridlocation = gridLocations[x]
+            var fromX = droppingPosition.x
+            var toX = gridlocation.x
+            var fromY = droppingPosition.y
+            var toY = gridlocation.y
+            if droppingPosition.x > gridlocation.x {
+                fromX = gridlocation.x
+                toX   = droppingPosition.x
+            }
+            if droppingPosition.y > gridlocation.y {
+                fromY = gridlocation.y
+                toY   = droppingPosition.y
+            }
+            let distance = (fromX - toX) * (fromX - toX) + (fromY - toY) * (fromY - toY)
+            let halfTileSideSize = gridView.frame.height / 2
+            if distance < halfTileSideSize {
+                return(true, x)
+            }
+        }
+        return(false, 50)
+    }
+    
+    func getGridLocations() {
+        let width  = gridView.frame.width / 4
+        let height = gridView.frame.height / 4
+        for y in 0..<4 {
+            for x in 0..<4 {
+                let location            = CGPoint.init(x: CGFloat(x) * width, y: CGFloat(y) * height)
+                let locationInSuperview = gridView.convert(location, to: gridView.superview)
+                gridLocations.append(locationInSuperview)
+            }
+        }
     }
         
-
+    func drawing() {
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: gridView.frame.width, height: gridView.frame.height))
+        let image = renderer.image { (ctx) in
+                let squareDimension = gridView.frame.width*0.9
+                drawGrid(context: ctx, squareDimension: squareDimension)
+        }
+        gridView.image = image
+    }
+    
+    func drawGrid(context: UIGraphicsImageRendererContext, squareDimension: CGFloat) {
+        for row in 0...4 {
+            let point = CGPoint(x: CGFloat(row)*(squareDimension/4), y: 0)
+            context.cgContext.move(to: point)
+            context.cgContext.addLine(to: CGPoint(x: CGFloat(row)*(squareDimension/4), y: squareDimension))
+            context.cgContext.strokePath()
+        }
+        for col in 0...4 {
+            let point = CGPoint(x:  0, y:CGFloat(col)*(squareDimension/4))
+            context.cgContext.move(to: point)
+            context.cgContext.addLine(to: CGPoint(x: squareDimension, y: CGFloat(col)*(squareDimension/4)))
+            context.cgContext.strokePath()
+        }
+    }
     /*
     // MARK: - Navigation
 
