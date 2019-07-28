@@ -27,6 +27,7 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
     
     
     @IBAction func newGameButton(_ sender: Any) {
+        navigationController?.popToRootViewController(animated: true)
     }
     
     @IBAction func soundButtonPressed(_ sender: Any) {
@@ -48,8 +49,7 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        drawing()
-    
+        drawing()
         sliceImage(image: gameImage)
         getGridLocations()
     }
@@ -73,12 +73,12 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
     }
     
     func createTiles() {
-        let numberOfTiles = 16
-        let tileSideDimension = gridView.frame.height / 4
+        let numberOfTiles            = 16
+        let tileSideDimension        = gridView.frame.height / 4
         let tileSideDimensionWithGap = tileSideDimension + 5
         // calculate the number of tiles that can fit across and down in the tile container view
         let columns = Int((tilesContainerView.frame.width / tileSideDimensionWithGap).rounded(.down))
-        let rows = Int((tilesContainerView.frame.height / tileSideDimensionWithGap).rounded(.down))
+        let rows    = Int((tilesContainerView.frame.height / tileSideDimensionWithGap).rounded(.down))
         let numberOfTilesCanFit = columns * rows
         if numberOfTiles > numberOfTilesCanFit {
             print("More tiles than space available")
@@ -185,9 +185,11 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
         let height = gridView.frame.height / 4
         for y in 0..<4 {
             for x in 0..<4 {
+                //UIGraphicsBeginImageContextWithOptions(CGSize(width: width, height: height), false, 0)
                 let location            = CGPoint.init(x: CGFloat(x) * width, y: CGFloat(y) * height)
                 let locationInSuperview = gridView.convert(location, to: gridView.superview)
                 gridLocations.append(locationInSuperview)
+                print(gridLocations)
             }
         }
     }
