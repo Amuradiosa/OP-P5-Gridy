@@ -90,7 +90,7 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
                     if imageNumber < numberOfTiles {
                         let tileXCoordinate = CGFloat(x) * tileSideDimensionWithGap
                         let tileYCoordinate = CGFloat(y) * tileSideDimensionWithGap
-                        let tileRect = CGRect(x: tileXCoordinate, y: tileYCoordinate, width: tileSideDimensionWithGap, height: tileSideDimensionWithGap)
+                        let tileRect = CGRect(x: tileXCoordinate, y: tileYCoordinate, width: tileSideDimension, height: tileSideDimension)
                         let tile = TileAttributes(originalTileLocation: CGPoint(x: tileXCoordinate, y: tileYCoordinate), frame: tileRect, tileGridLocation: imageNumber)
                         containingView.addSubview(tile)
                         let randomNumber = Int.random(in: 0...(imagePositionsarray.count - 1))
@@ -197,7 +197,7 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
     func drawing() {
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: gridView.frame.width, height: gridView.frame.height))
         let image = renderer.image { (ctx) in
-                let squareDimension = gridView.frame.width*0.9
+                let squareDimension = gridView.frame.width
                 drawGrid(context: ctx, squareDimension: squareDimension)
         }
         gridView.image = image
