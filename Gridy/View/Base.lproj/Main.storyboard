@@ -244,6 +244,7 @@
                     <connections>
                         <outlet property="containingView" destination="ep8-p4-95x" id="B31-Nq-Le0"/>
                         <outlet property="gridView" destination="hbs-4l-dhS" id="D1q-E0-quN"/>
+                        <outlet property="movesCounter" destination="crY-MT-30n" id="o7y-Qk-ZC6"/>
                         <outlet property="soundButton" destination="ASd-3S-zrl" id="lCD-9j-hQt"/>
                         <outlet property="tilesContainerView" destination="XcG-dZ-vfm" id="1rl-0y-lxT"/>
                         <segue destination="yzR-of-HJs" kind="show" identifier="goToShare" id="cfw-YI-oYc"/>

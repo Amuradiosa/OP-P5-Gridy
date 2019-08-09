@@ -17,14 +17,17 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
     var gridLocations = [CGPoint]()
     var intialImageViewOffset = CGPoint()
     var audioPlayer : AVAudioPlayer!
-
+    var moves         = 0
+    var score         = 0
+    var scoringStreak = 0
+    let imageView        = UIImageView()
+    let imageHoldingView = UIView()
     
     @IBOutlet weak var containingView: UIView!
     @IBOutlet weak var gridView: UIImageView!
     @IBOutlet weak var tilesContainerView: UIView!
     @IBOutlet weak var soundButton: UIButton!
-    
-    
+    @IBOutlet weak var movesCounter: UILabel!
     
     
     @IBAction func newGameButton(_ sender: Any) {
@@ -36,6 +39,31 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
     }
     
     @IBAction func peekButtonPressed(_ sender: Any) {
+        imageView.image = gameImage
+        view.addSubview(imageHoldingView)
+        imageHoldingView.addSubview(imageView)
+        var imageViewDimension = 0.0
+        var imageHoldingViewDimension = 0.0
+        if view.frame.height > view.frame.width {
+            imageViewDimension = Double(view.frame.width) - 30
+            imageHoldingViewDimension = Double(view.frame.width) - 20
+        } else {
+            imageViewDimension = Double(view.frame.height) - 30
+            imageHoldingViewDimension = Double(view.frame.height) - 20
+        }
+        imageHoldingView.frame = CGRect(x: 0.0, y: 0.0, width: imageHoldingViewDimension, height: imageHoldingViewDimension)
+        imageView.frame = CGRect(x: 0.0, y: 0.0, width: imageViewDimension, height: imageViewDimension)
+        imageHoldingView.backgroundColor = UIColor.black
+        imageView.center = imageHoldingView.center
+        imageHoldingView.center = CGPoint(x: view.center.y - view.frame.width, y: view.center.y)
+        view.bringSubviewToFront(imageHoldingView)
+        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: [], animations: {
+            self.imageHoldingView.center = self.view.center
+        })
+        UIView.animate(withDuration: 0.5, delay: 2, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: [], animations: {
+            self.imageHoldingView.center = CGPoint(x: self.view.center.x + self.view.frame.width, y: self.view.center.y)
+        })
+
     }
     
     func play(sound: String) {
@@ -46,6 +74,20 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
             print(error)
         }
         audioPlayer.play()
+    }
+    
+    func updateMoveCounter(isItCorrect: Bool) {
+        moves += 1
+        if isItCorrect == false {
+            scoringStreak = 0
+            if score > 0 {
+                score -= 1
+            }
+        } else {
+            scoringStreak += 1
+            score += scoringStreak
+        }
+        movesCounter.text = String(format: "%03d", score)
     }
     
     override func viewDidLoad() {
@@ -131,8 +173,10 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
                 }
                 if String(snapPosition) == t.accessibilityLabel {
                     t.isTileInCorrectLocation = true
+                    updateMoveCounter(isItCorrect: true)
                 } else {
                     t.isTileInCorrectLocation = false
+                    updateMoveCounter(isItCorrect: false)
                 }
             } else {
                 sender.view?.frame.origin = t.originalTileLocation
