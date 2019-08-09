@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		151DB45B22F0BBE100BF8EE5 /* DrawingRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151DB45A22F0BBE100BF8EE5 /* DrawingRenderer.swift */; };
+		151DB45D22F0BD2000BF8EE5 /* GridDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151DB45C22F0BD2000BF8EE5 /* GridDrawer.swift */; };
 		15682A4C22D3313800116BEB /* TileAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15682A4B22D3313800116BEB /* TileAttributes.swift */; };
 		15682A4F22DF24F500116BEB /* wrong.wav in Resources */ = {isa = PBXBuildFile; fileRef = 15682A4E22DF24F500116BEB /* wrong.wav */; };
 		15682A5122DF25B400116BEB /* correct.wav in Resources */ = {isa = PBXBuildFile; fileRef = 15682A5022DF25B400116BEB /* correct.wav */; };
@@ -21,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		151DB45A22F0BBE100BF8EE5 /* DrawingRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingRenderer.swift; sourceTree = "<group>"; };
+		151DB45C22F0BD2000BF8EE5 /* GridDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridDrawer.swift; sourceTree = "<group>"; };
 		15682A4B22D3313800116BEB /* TileAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileAttributes.swift; sourceTree = "<group>"; };
 		15682A4E22DF24F500116BEB /* wrong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = wrong.wav; sourceTree = "<group>"; };
 		15682A5022DF25B400116BEB /* correct.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = correct.wav; sourceTree = "<group>"; };
@@ -119,6 +123,8 @@
 			children = (
 				1571F60922C32996009BDBC2 /* RoundedButton.swift */,
 				15682A4B22D3313800116BEB /* TileAttributes.swift */,
+				151DB45A22F0BBE100BF8EE5 /* DrawingRenderer.swift */,
+				151DB45C22F0BD2000BF8EE5 /* GridDrawer.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -202,6 +208,8 @@
 				158C7B9E22AA759500C83CFE /* AppDelegate.swift in Sources */,
 				1571F60A22C32996009BDBC2 /* RoundedButton.swift in Sources */,
 				15858DC522CB60F400AC41B9 /* AdjustImageViewController.swift in Sources */,
+				151DB45D22F0BD2000BF8EE5 /* GridDrawer.swift in Sources */,
+				151DB45B22F0BBE100BF8EE5 /* DrawingRenderer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

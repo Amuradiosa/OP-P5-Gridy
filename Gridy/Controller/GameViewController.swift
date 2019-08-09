@@ -17,6 +17,7 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
     var gridLocations = [CGPoint]()
     var intialImageViewOffset = CGPoint()
     var audioPlayer : AVAudioPlayer!
+
     
     @IBOutlet weak var containingView: UIView!
     @IBOutlet weak var gridView: UIImageView!
@@ -49,10 +50,12 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        drawing()
+        let drawGridIn = DrawingRenderer(drawingView: gridView)
+        drawGridIn.drawingOn(thisView: gridView)
         sliceImage(image: gameImage)
         getGridLocations()
     }
+    
     
     func sliceImage(image: UIImage) {
         let imageToSlice = image
@@ -193,38 +196,31 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
             }
         }
     }
-        
-    func drawing() {
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: gridView.frame.width, height: gridView.frame.height))
-        let image = renderer.image { (ctx) in
-                let squareDimension = gridView.frame.width
-                drawGrid(context: ctx, squareDimension: squareDimension)
-        }
-        gridView.image = image
-    }
     
-    func drawGrid(context: UIGraphicsImageRendererContext, squareDimension: CGFloat) {
-        for row in 0...4 {
-            let point = CGPoint(x: CGFloat(row)*(squareDimension/4), y: 0)
-            context.cgContext.move(to: point)
-            context.cgContext.addLine(to: CGPoint(x: CGFloat(row)*(squareDimension/4), y: squareDimension))
-            context.cgContext.strokePath()
-        }
-        for col in 0...4 {
-            let point = CGPoint(x:  0, y:CGFloat(col)*(squareDimension/4))
-            context.cgContext.move(to: point)
-            context.cgContext.addLine(to: CGPoint(x: squareDimension, y: CGFloat(col)*(squareDimension/4)))
-            context.cgContext.strokePath()
-        }
-    }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+        
+//    func drawing() {
+//        let renderer = UIGraphicsImageRenderer(size: CGSize(width: gridView.frame.width, height: gridView.frame.height))
+//        let image = renderer.image { (ctx) in
+//                let squareDimension = gridView.frame.width
+//                drawGrid(context: ctx, squareDimension: squareDimension)
+//        }
+//        gridView.image = image
+//    }
+//    
+//    func drawGrid(context: UIGraphicsImageRendererContext, squareDimension: CGFloat) {
+//        for row in 0...4 {
+//            let point = CGPoint(x: CGFloat(row)*(squareDimension/4), y: 0)
+//            context.cgContext.move(to: point)
+//            context.cgContext.addLine(to: CGPoint(x: CGFloat(row)*(squareDimension/4), y: squareDimension))
+//            context.cgContext.strokePath()
+//        }
+//        for col in 0...4 {
+//            let point = CGPoint(x:  0, y:CGFloat(col)*(squareDimension/4))
+//            context.cgContext.move(to: point)
+//            context.cgContext.addLine(to: CGPoint(x: squareDimension, y: CGFloat(col)*(squareDimension/4)))
+//            context.cgContext.strokePath()
+//        }
+//    }
+    
 
 }

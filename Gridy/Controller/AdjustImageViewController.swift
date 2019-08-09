@@ -29,35 +29,21 @@ class AdjustImageViewController: UIViewController, UIGestureRecognizerDelegate {
     
     func drawing() {
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: gridView.frame.width, height: gridView.frame.height))
+        let gridDrawer = GridDrawer()
         let image = renderer.image { (ctx) in
             if view.frame.width < view.frame.height {
                 let squareDimension = view.frame.width*0.9
                 cropImageBoxView.frame = CGRect(x: (view.frame.width - squareDimension)/2, y: (view.frame.height - squareDimension)/2, width: squareDimension, height: squareDimension)
-                drawGrid(context: ctx, squareDimension: squareDimension)
+                gridDrawer.drawGrid(context: ctx, squareDimension: squareDimension)
             } else {
                 let squareDimension = view.frame.height*0.9
                 cropImageBoxView.frame = CGRect(x: (view.frame.width - squareDimension)/2, y: (view.frame.height - squareDimension)/2, width: squareDimension, height: squareDimension)
-                drawGrid(context: ctx, squareDimension: squareDimension)
+                gridDrawer.drawGrid(context: ctx, squareDimension: squareDimension)
             }
         }
         gridView.image = image
     }
-        
-    func drawGrid(context: UIGraphicsImageRendererContext, squareDimension: CGFloat) {
-        for row in 0...4 {
-            let point = CGPoint(x: CGFloat(row)*(squareDimension/4), y: 0)
-            context.cgContext.move(to: point)
-            context.cgContext.addLine(to: CGPoint(x: CGFloat(row)*(squareDimension/4), y: squareDimension))
-            context.cgContext.strokePath()
-        }
-        for col in 0...4 {
-            let point = CGPoint(x:  0, y:CGFloat(col)*(squareDimension/4))
-            context.cgContext.move(to: point)
-            context.cgContext.addLine(to: CGPoint(x: squareDimension, y: CGFloat(col)*(squareDimension/4)))
-            context.cgContext.strokePath()
-        }
-    }
-        
+                
     func cropImage() -> UIImage {
         UIGraphicsBeginImageContextWithOptions(userChosenImage.bounds.size, false, 0)
         userChosenImage.drawHierarchy(in: userChosenImage.bounds, afterScreenUpdates: true)
