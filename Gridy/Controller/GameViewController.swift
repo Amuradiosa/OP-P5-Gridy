@@ -104,8 +104,8 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
         let height = imageToSlice.size.height/4
         // Create a scale conversion factor to convert from points to pixles
         let scale = (imageToSlice.scale)
-        for x in 0..<4 {
-            for y in 0..<4 {
+        for y in 0..<4 {
+            for x in 0..<4 {
                 UIGraphicsBeginImageContext(CGSize(width: width, height: height))
                 let i = imageToSlice.cgImage?.cropping(to: CGRect(x: CGFloat(x)*width*scale, y: CGFloat(y)*height*scale, width: width, height: height))
                 let tileImage = UIImage(cgImage: i!)
@@ -226,8 +226,8 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
                 toY   = droppingPosition.y
             }
             let distance = (fromX - toX) * (fromX - toX) + (fromY - toY) * (fromY - toY)
-            let halfTileSideSize = gridView.frame.height / 2
-            if distance < halfTileSideSize {
+            let halfTileSideSize = (gridView.frame.height / 4) / 2
+            if distance < halfTileSideSize * halfTileSideSize {
                 return(true, x)
             }
         }
@@ -239,11 +239,10 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
         let height = gridView.frame.height / 4
         for y in 0..<4 {
             for x in 0..<4 {
-                //UIGraphicsBeginImageContextWithOptions(CGSize(width: width, height: height), false, 0)
+                UIGraphicsBeginImageContextWithOptions(CGSize(width: width, height: height), false, 0)
                 let location            = CGPoint.init(x: CGFloat(x) * width, y: CGFloat(y) * height)
                 let locationInSuperview = gridView.convert(location, to: gridView.superview)
                 gridLocations.append(locationInSuperview)
-                print(gridLocations)
             }
         }
     }
