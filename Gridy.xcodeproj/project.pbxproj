@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1515442722FFFD2F005DFFB0 /* CompleteShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1515442622FFFD2F005DFFB0 /* CompleteShareViewController.swift */; };
 		151DB45B22F0BBE100BF8EE5 /* DrawingRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151DB45A22F0BBE100BF8EE5 /* DrawingRenderer.swift */; };
 		151DB45D22F0BD2000BF8EE5 /* GridDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151DB45C22F0BD2000BF8EE5 /* GridDrawer.swift */; };
 		15682A4C22D3313800116BEB /* TileAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15682A4B22D3313800116BEB /* TileAttributes.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1515442622FFFD2F005DFFB0 /* CompleteShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteShareViewController.swift; sourceTree = "<group>"; };
 		151DB45A22F0BBE100BF8EE5 /* DrawingRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingRenderer.swift; sourceTree = "<group>"; };
 		151DB45C22F0BD2000BF8EE5 /* GridDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridDrawer.swift; sourceTree = "<group>"; };
 		15682A4B22D3313800116BEB /* TileAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileAttributes.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				158C7B9F22AA759500C83CFE /* ViewController.swift */,
 				15858DC422CB60F400AC41B9 /* AdjustImageViewController.swift */,
 				15858DC622CF9EAE00AC41B9 /* GameViewController.swift */,
+				1515442622FFFD2F005DFFB0 /* CompleteShareViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 				1571F60A22C32996009BDBC2 /* RoundedButton.swift in Sources */,
 				15858DC522CB60F400AC41B9 /* AdjustImageViewController.swift in Sources */,
 				151DB45D22F0BD2000BF8EE5 /* GridDrawer.swift in Sources */,
+				1515442722FFFD2F005DFFB0 /* CompleteShareViewController.swift in Sources */,
 				151DB45B22F0BBE100BF8EE5 /* DrawingRenderer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

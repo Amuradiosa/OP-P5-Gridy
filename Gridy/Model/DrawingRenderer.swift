@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public class DrawingRenderer: GridDrawer {
+class DrawingRenderer: GridDrawer {
     
     let drawingView: UIImageView
     

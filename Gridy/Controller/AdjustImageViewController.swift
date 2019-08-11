@@ -23,7 +23,7 @@ class AdjustImageViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func startButton(_ sender: Any) {
-//        performSegue(withIdentifier: "goToGameViewController", sender: self)
+        performSegue(withIdentifier: "goToGameViewController", sender: self)
         userChosenImage.transform = .identity
     }
     
@@ -45,8 +45,8 @@ class AdjustImageViewController: UIViewController, UIGestureRecognizerDelegate {
     }
                 
     func cropImage() -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(userChosenImage.bounds.size, false, 0)
-        userChosenImage.drawHierarchy(in: userChosenImage.bounds, afterScreenUpdates: true)
+        UIGraphicsBeginImageContextWithOptions(cropImageBoxView.bounds.size, false, 0)
+        cropImageBoxView.drawHierarchy(in: cropImageBoxView.bounds, afterScreenUpdates: true)
         let screenShot = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return screenShot
@@ -132,13 +132,5 @@ class AdjustImageViewController: UIViewController, UIGestureRecognizerDelegate {
    
 }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
 

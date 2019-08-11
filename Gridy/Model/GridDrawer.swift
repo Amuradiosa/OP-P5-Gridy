@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public class GridDrawer {
+class GridDrawer {
     
 //    let context: UIGraphicsRendererContext
 //    let squareDimension: CGFloat

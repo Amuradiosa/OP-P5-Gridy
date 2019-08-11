@@ -57,13 +57,12 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
         imageView.center = imageHoldingView.center
         imageHoldingView.center = CGPoint(x: view.center.y - view.frame.width, y: view.center.y)
         view.bringSubviewToFront(imageHoldingView)
-        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: [], animations: {
+        UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: [], animations: {
             self.imageHoldingView.center = self.view.center
         })
-        UIView.animate(withDuration: 0.5, delay: 2, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: [], animations: {
+        UIView.animate(withDuration: 0.4, delay: 2, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: [], animations: {
             self.imageHoldingView.center = CGPoint(x: self.view.center.x + self.view.frame.width, y: self.view.center.y)
         })
-
     }
     
     func play(sound: String) {
@@ -191,7 +190,15 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
     
     func checkIfGameComplete() {
         if allTilesInCorrectPosition() {
-            performSegue(withIdentifier: "goToShare", sender: self)
+            performSegue(withIdentifier: "goToCompleteShareViewController", sender: self)
+        }
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToCompleteShareViewController" {
+            let destination = segue.destination as! CompleteShareViewController
+            destination.gameImage = gameImage
+            destination.moves = moves
+            destination.score = score
         }
     }
     func allTilesInCorrectPosition() -> Bool {
@@ -241,30 +248,7 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
         }
     }
     
-        
-//    func drawing() {
-//        let renderer = UIGraphicsImageRenderer(size: CGSize(width: gridView.frame.width, height: gridView.frame.height))
-//        let image = renderer.image { (ctx) in
-//                let squareDimension = gridView.frame.width
-//                drawGrid(context: ctx, squareDimension: squareDimension)
-//        }
-//        gridView.image = image
-//    }
-//    
-//    func drawGrid(context: UIGraphicsImageRendererContext, squareDimension: CGFloat) {
-//        for row in 0...4 {
-//            let point = CGPoint(x: CGFloat(row)*(squareDimension/4), y: 0)
-//            context.cgContext.move(to: point)
-//            context.cgContext.addLine(to: CGPoint(x: CGFloat(row)*(squareDimension/4), y: squareDimension))
-//            context.cgContext.strokePath()
-//        }
-//        for col in 0...4 {
-//            let point = CGPoint(x:  0, y:CGFloat(col)*(squareDimension/4))
-//            context.cgContext.move(to: point)
-//            context.cgContext.addLine(to: CGPoint(x: squareDimension, y: CGFloat(col)*(squareDimension/4)))
-//            context.cgContext.strokePath()
-//        }
-//    }
+    
     
 
 }
