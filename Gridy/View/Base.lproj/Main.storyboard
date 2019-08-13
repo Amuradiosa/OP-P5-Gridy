@@ -245,6 +245,7 @@
                         <outlet property="containingView" destination="ep8-p4-95x" id="B31-Nq-Le0"/>
                         <outlet property="gridView" destination="hbs-4l-dhS" id="D1q-E0-quN"/>
                         <outlet property="movesCounter" destination="crY-MT-30n" id="o7y-Qk-ZC6"/>
+                        <outlet property="newGameButton" destination="up8-EG-6Mg" id="9EZ-YT-cB1"/>
                         <outlet property="soundButton" destination="ASd-3S-zrl" id="lCD-9j-hQt"/>
                         <outlet property="tilesContainerView" destination="XcG-dZ-vfm" id="1rl-0y-lxT"/>
                         <segue destination="yzR-of-HJs" kind="show" identifier="goToCompleteShareViewController" id="cfw-YI-oYc"/>
@@ -308,7 +309,9 @@
                     </view>
                     <connections>
                         <outlet property="completeImageHolder" destination="ARC-PY-7TU" id="G7B-N8-7Ln"/>
+                        <outlet property="newGameButton" destination="xbS-JJ-zrX" id="i9S-3m-sKy"/>
                         <outlet property="scoreLabel" destination="peB-BN-Cvy" id="Y7K-VB-74M"/>
+                        <outlet property="shareButton" destination="3g1-Jo-Jik" id="JMH-sS-Bv7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="htc-wd-200" userLabel="First Responder" sceneMemberID="firstResponder"/>

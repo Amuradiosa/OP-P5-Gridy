@@ -10,10 +10,13 @@ import Foundation
 import UIKit
 
 struct RoundedButton {
+    
     let button: UIButton
+    
     init (button: UIButton) {
         self.button = button
     }
+    
     func rounded(button: UIButton?) {
         if let newButton = button {
             newButton.layer.cornerRadius  = 10.0

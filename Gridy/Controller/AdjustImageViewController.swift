@@ -115,11 +115,9 @@ class AdjustImageViewController: UIViewController, UIGestureRecognizerDelegate {
         sender.scale = 1
     }
         
-    func rounded(button: UIButton?) {
-        if let newButton = button {
-            let roundedButton = RoundedButton(button: newButton)
-            roundedButton.rounded(button: newButton)
-        }
+    func rounded(button: UIButton) {
+            let roundedButton = RoundedButton(button: button)
+            roundedButton.rounded(button: button)
     }
         
     override func viewDidLoad() {

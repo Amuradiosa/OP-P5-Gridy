@@ -28,10 +28,11 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
     @IBOutlet weak var tilesContainerView: UIView!
     @IBOutlet weak var soundButton: UIButton!
     @IBOutlet weak var movesCounter: UILabel!
+    @IBOutlet weak var newGameButton: UIButton!
     
     
     @IBAction func newGameButton(_ sender: Any) {
-        navigationController?.popToRootViewController(animated: true)
+    navigationController?.popToRootViewController(animated: true)
     }
     
     @IBAction func soundButtonPressed(_ sender: Any) {
@@ -99,12 +100,22 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
         return newImage
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    func rounded(button: UIButton) {
+        let roundedButton = RoundedButton(button: button)
+        roundedButton.rounded(button: button)
+    }
+    
+    func configure() {
         let drawGridIn = DrawingRenderer(drawingView: gridView)
         drawGridIn.drawingOn(thisView: gridView)
+        rounded(button: newGameButton)
         sliceImage(image: reSize(image: gameImage, newWidth: gridView.frame.width)!)
         getGridLocations()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configure()
     }
     
     
