@@ -89,11 +89,21 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
         movesCounter.text = String(format: "%03d", score)
     }
     
+    func reSize(image: UIImage, newWidth: CGFloat) -> UIImage? {
+        let scale = newWidth / image.size.width
+        let newHeight = image.size.height * scale
+        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+        image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let drawGridIn = DrawingRenderer(drawingView: gridView)
         drawGridIn.drawingOn(thisView: gridView)
-        sliceImage(image: gameImage)
+        sliceImage(image: reSize(image: gameImage, newWidth: gridView.frame.width)!)
         getGridLocations()
     }
     
