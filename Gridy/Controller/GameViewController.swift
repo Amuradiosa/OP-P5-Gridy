@@ -101,8 +101,9 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
     }
     
     func rounded(button: UIButton) {
-        let roundedButton = RoundedButton(button: button)
-        roundedButton.rounded(button: button)
+        var roundedButton = RoundedButton()
+        roundedButton.setButton(button)
+        roundedButton.rounded()
     }
     
     func configure() {

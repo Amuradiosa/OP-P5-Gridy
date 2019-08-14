@@ -159,11 +159,10 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
    
     // MARK: - *****Configuration functionality*****
     
-    func rounded(button: UIButton?) {
-        if let newButton = button {
-            let roundedButton = RoundedButton(button: newButton)
-            roundedButton.rounded(button: newButton)
-        }
+    func rounded(button: UIButton) {
+        var roundedButton = RoundedButton()
+        roundedButton.setButton(button)
+        roundedButton.rounded()
     }
     
     func configure() {

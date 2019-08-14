@@ -11,13 +11,13 @@ import UIKit
 
 struct RoundedButton {
     
-    let button: UIButton
+    private var button: UIButton?
     
-    init (button: UIButton) {
+    mutating func setButton(_ button: UIButton) {
         self.button = button
     }
-    
-    func rounded(button: UIButton?) {
+
+    func rounded() {
         if let newButton = button {
             newButton.layer.cornerRadius  = 10.0
             newButton.layer.masksToBounds = true
