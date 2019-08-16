@@ -129,7 +129,7 @@
                                     <action selector="startButton:" destination="pY0-NP-Sm4" eventType="touchUpInside" id="WBA-uR-kzM"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uhb-a6-er5" userLabel="Crop image box view">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uhb-a6-er5" userLabel="Crop image box view">
                                 <rect key="frame" x="19" y="165" width="337.5" height="337.5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>

@@ -51,7 +51,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
                     }
                 }
             case .authorized :
-                self.presentPhoto(sourceType: .photoLibrary)
+                self.presentPhoto(sourceType: sourceType)
             case .denied, .restricted :
                 self.troubleAlert(message: noPermissionMessage)
             }
@@ -104,7 +104,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
             fatalError("Expected a dictionary containing an image, but was provided with the following: \(info)")
         }
         userChosenImage = pickedImage
-        processPicked(image: userChosenImage)
+        performSegue(withIdentifier: "goToAdjustImage", sender: self)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -115,7 +115,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     
     func collectLocalImages() {
         localImages.removeAll()
-        let localImagesNames = ["Boats", "Car", "Crocadile", "Park", "TShirts"]
+        let localImagesNames = ["Boats", "Car", "Crocodile", "Park", "TShirts"]
         for name in localImagesNames {
             if let image = UIImage(named: name) {
                 localImages.append(image)
@@ -123,16 +123,20 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         }
     }
     
-    let localImageIndex = "imageIndex"
-    var lastImageIndex: Int {
+    // Global constant that holds the key for lastImageIndex, created to make it lesser prone to errors
+    private let localImageIndex = "imageIndex"
+    // calculated variable to store the index(Integer value) of the last randolmly picked image from the array localImages
+    private var lastImageIndex: Int {
         get {
             let savedIndex = defaults.value(forKey: localImageIndex)
             if savedIndex == nil {
+                // initially assign the savedIndex the last index of the last image in localImages
                 defaults.set(localImages.count - 1, forKey: localImageIndex)
             }
             return defaults.integer(forKey: localImageIndex)
         }
         set {
+            // make sure that the value taht we're trying to pass is between zero and the last index of localImages elements, and if it is within the range then we're saving the value we're provided
             if newValue >= 0 && newValue < localImages.count {
                 defaults.set(newValue, forKey: localImageIndex)
             }
@@ -143,10 +147,11 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         let lastPickedImage = localImages[lastImageIndex]
         if localImages.count > 0 {
             while true {
-                let randomImgaeNumber = Int.random(in: 0...localImages.count - 1)
-                let newImage = localImages[randomImgaeNumber]
+                let randomImageNumber = Int.random(in: 0...localImages.count - 1)
+                let newImage = localImages[randomImageNumber]
                 if newImage != lastPickedImage {
-                return newImage
+                    lastImageIndex = randomImageNumber
+                    return newImage
             }
         }
     }
@@ -154,7 +159,8 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     }
     
     func pickRandom() {
-        processPicked(image: randomImage())
+        userChosenImage = randomImage() ?? localImages[0]
+        performSegue(withIdentifier: "goToAdjustImage", sender: self)
     }
    
     // MARK: - *****Configuration functionality*****
@@ -179,11 +185,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
             destination.passedImage = userChosenImage
             }
         }
-    func processPicked(image: UIImage?) {
-        if let newImage = image {
-            performSegue(withIdentifier: "goToAdjustImage", sender: self)
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

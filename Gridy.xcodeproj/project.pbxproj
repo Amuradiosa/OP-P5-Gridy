@@ -67,8 +67,8 @@
 			children = (
 				15682A4D22DF24D100116BEB /* Sound files */,
 				158C7B9D22AA759500C83CFE /* AppDelegate.swift */,
-				158C7BA422AA759700C83CFE /* Assets.xcassets */,
 				158C7BA622AA759700C83CFE /* LaunchScreen.storyboard */,
+				158C7BA422AA759700C83CFE /* Assets.xcassets */,
 			);
 			name = "Supporting files";
 			path = Gridy;
@@ -95,8 +95,8 @@
 		158C7B9C22AA759500C83CFE /* Gridy */ = {
 			isa = PBXGroup;
 			children = (
-				158C7BB022AA75D100C83CFE /* View */,
 				158C7BB122AA75E500C83CFE /* Model */,
+				158C7BB022AA75D100C83CFE /* View */,
 				158C7BAF22AA75C500C83CFE /* Controller */,
 			);
 			path = Gridy;
