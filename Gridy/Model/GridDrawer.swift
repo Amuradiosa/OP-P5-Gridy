@@ -11,14 +11,6 @@ import UIKit
 
 class GridDrawer {
     
-//    let context: UIGraphicsRendererContext
-//    let squareDimension: CGFloat
-//    
-//    init(context: UIGraphicsRendererContext, squareDimension: CGFloat) {
-//        self.context         = context
-//        self.squareDimension = squareDimension
-//    }
-    
     func drawGrid(context: UIGraphicsImageRendererContext, squareDimension: CGFloat) {
                 for row in 0...4 {
                     let point = CGPoint(x: CGFloat(row)*(squareDimension/4), y: 0)

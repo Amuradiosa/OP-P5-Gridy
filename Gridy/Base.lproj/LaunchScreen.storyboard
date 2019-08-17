@@ -18,12 +18,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="Gridy-name-large-green" translatesAutoresizingMaskIntoConstraints="NO" id="VIf-Mh-lz8">
-                                <rect key="frame" x="34" y="259" width="307" height="148"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Gridy-name-large-green" translatesAutoresizingMaskIntoConstraints="NO" id="VIf-Mh-lz8">
+                                <rect key="frame" x="34" y="259.5" width="307" height="148"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="148" id="TWF-86-6bB"/>
+                                    <constraint firstAttribute="width" constant="307" id="pLT-Gp-NcU"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="VIf-Mh-lz8" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="CNG-ZH-kFE"/>
+                            <constraint firstItem="VIf-Mh-lz8" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="eWu-NW-78W"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
