@@ -173,6 +173,10 @@
                                 <rect key="frame" x="356" y="165" width="19" height="337"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2pY-ze-gBN" userLabel="topView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="165"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mmf-Hc-cAJ">
                                 <rect key="frame" x="132.5" y="538.5" width="110" height="90"/>
                                 <color key="backgroundColor" red="0.60013139250000003" green="0.8227904439" blue="0.6156570911" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -212,10 +216,6 @@
                                     <action selector="closeButton:" destination="pY0-NP-Sm4" eventType="touchUpInside" id="sUJ-MZ-oPi"/>
                                 </connections>
                             </button>
-                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2pY-ze-gBN" userLabel="topView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="165"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -570,7 +570,7 @@ swipe out of the grid to undo</string>
                                     <action selector="shareButton:" destination="yzR-of-HJs" eventType="touchUpInside" id="PSA-Hv-5Fz"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You solved it" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="peB-BN-Cvy">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You solved it" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="peB-BN-Cvy">
                                 <rect key="frame" x="52.5" y="353.5" width="270" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="270" id="796-gb-rPX"/>

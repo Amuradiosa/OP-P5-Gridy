@@ -11,23 +11,32 @@ import AVFoundation
 
 class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavigationControllerDelegate {
     
+    //MARK: - **************** Variables ****************
+    
+    // global variable that holds the passed game image
     var gameImage     = UIImage()
+    // array of images to hold the 16 slices of the game image
     var imageArray    = [UIImage]()
+    // array of customed tiles(subclassed from UIImage view) to hold the tiles and their extra attributes
     var tileViews     = [TileAttributes]()
+    // array to hold the top left corner of each tile location in the grid
     var gridLocations = [CGPoint]()
-    var intialImageViewOffset = CGPoint()
+    // sound managment variables
+    @IBOutlet weak var soundButton: UIButton!
     var audioPlayer : AVAudioPlayer!
+    // varaiables for move counter functionality
+    @IBOutlet weak var movesCounter: UILabel!
     var moves         = 0
     var score         = 0
-    var scoringStreak = 0
+    var scoringreward = 0
+    // views for the peek functionality
     let imageView        = UIImageView()
     let imageHoldingView = UIView()
     
+    // containing view that contains both subviews of the slices of the game image and the grid views tiles
     @IBOutlet weak var containingView: UIView!
     @IBOutlet weak var gridView: UIImageView!
     @IBOutlet weak var tilesContainerView: UIView!
-    @IBOutlet weak var soundButton: UIButton!
-    @IBOutlet weak var movesCounter: UILabel!
     @IBOutlet weak var newGameButton: UIButton!
     
     
@@ -36,9 +45,11 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
     }
     
     @IBAction func soundButtonPressed(_ sender: Any) {
+        // disable and undisable the sound button
         soundButton.isSelected = !soundButton.isSelected
     }
     
+    // functionality of the peek image
     @IBAction func peekButtonPressed(_ sender: Any) {
         imageView.image = gameImage
         view.addSubview(imageHoldingView)
@@ -76,20 +87,22 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
         audioPlayer.play()
     }
     
+    // rewarding moves counter
     func updateMoveCounter(isItCorrect: Bool) {
         moves += 1
         if isItCorrect == false {
-            scoringStreak = 0
+            scoringreward = 0
             if score > 0 {
                 score -= 1
             }
         } else {
-            scoringStreak += 1
-            score += scoringStreak
+            scoringreward += 1
+            score += scoringreward
         }
         movesCounter.text = String(format: "%03d", score)
     }
     
+    // function to resize the passed image to prevent slices from being clipped when populated in the tiles
     func reSize(image: UIImage, newWidth: CGFloat) -> UIImage? {
         let scale = newWidth / image.size.width
         let newHeight = image.size.height * scale
@@ -119,7 +132,7 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
         configure()
     }
     
-    
+    // function to slice the game image into 16 slices
     func sliceImage(image: UIImage) {
         let imageToSlice = image
         let width = imageToSlice.size.width/4
@@ -138,6 +151,7 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
         createTiles()
     }
     
+    // function to create tiles that holds the 16 slices of the game image
     func createTiles() {
         let numberOfTiles            = 16
         let tileSideDimension        = gridView.frame.height / 4
@@ -175,13 +189,15 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
         }
     }
 
+    // global var to hold the initial position of the sliced game image view
+    private var initialImageViewOffset = CGPoint()
     @objc func moveImage(_ sender: UIPanGestureRecognizer) {
         sender.view?.superview?.bringSubviewToFront(sender.view!)
         let translation = sender.translation(in: sender.view?.superview)
         if sender.state == .began {
-            intialImageViewOffset = (sender.view?.frame.origin)!
+            initialImageViewOffset = (sender.view?.frame.origin)!
         }
-        let position = CGPoint(x: translation.x + intialImageViewOffset.x - (sender.view?.frame.origin.x)!, y: translation.y + intialImageViewOffset.y - (sender.view?.frame.origin.y)!)
+        let position = CGPoint(x: translation.x + initialImageViewOffset.x - (sender.view?.frame.origin.x)!, y: translation.y + initialImageViewOffset.y - (sender.view?.frame.origin.y)!)
         let postionInSuperView = sender.view?.convert(position, to: sender.view?.superview)
         sender.view?.transform = (sender.view?.transform.translatedBy(x: position.x, y: position.y))!
         if sender.state == .ended {
