@@ -16,22 +16,22 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
     // global variable that holds the passed game image
     var gameImage     = UIImage()
     // array of images to hold the 16 slices of the game image
-    var imageArray    = [UIImage]()
+    private var imageArray    = [UIImage]()
     // array of customed tiles(subclassed from UIImage view) to hold the tiles and their extra attributes
-    var tileViews     = [TileAttributes]()
+    private var tileViews     = [TileAttributes]()
     // array to hold the top left corner of each tile location in the grid
-    var gridLocations = [CGPoint]()
+    private var gridLocations = [CGPoint]()
     // sound managment variables
     @IBOutlet weak var soundButton: UIButton!
-    var audioPlayer : AVAudioPlayer!
+    private var audioPlayer : AVAudioPlayer!
     // varaiables for move counter functionality
     @IBOutlet weak var movesCounter: UILabel!
-    var moves         = 0
-    var score         = 0
-    var scoringreward = 0
+    private var moves         = 0
+    private var score         = 0
+    private var scoringreward = 0
     // views for the peek functionality
-    let imageView        = UIImageView()
-    let imageHoldingView = UIView()
+    private let imageView        = UIImageView()
+    private let imageHoldingView = UIView()
     
     // containing view that contains both subviews of the slices of the game image and the grid views tiles
     @IBOutlet weak var containingView: UIView!
@@ -49,17 +49,23 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
         soundButton.isSelected = !soundButton.isSelected
     }
     
-    // functionality of the peek image
+    // functionality of the peek image, presenting a preview of the image
     @IBAction func peekButtonPressed(_ sender: Any) {
+        //set the view image as the game image
         imageView.image = gameImage
+        // add the iamge holding view to the view
         view.addSubview(imageHoldingView)
+        // add the imageview to image holding view
         imageHoldingView.addSubview(imageView)
+        // variable to hold the dimension of both image holding view and image view
         var imageViewDimension = 0.0
         var imageHoldingViewDimension = 0.0
         if view.frame.height > view.frame.width {
             imageViewDimension = Double(view.frame.width) - 30
+            // make image holding view bigger than image view dimension so the former appears as a frame of the image
             imageHoldingViewDimension = Double(view.frame.width) - 20
         } else {
+            // this statement to cover landscape mode
             imageViewDimension = Double(view.frame.height) - 30
             imageHoldingViewDimension = Double(view.frame.height) - 20
         }
@@ -67,16 +73,19 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
         imageView.frame = CGRect(x: 0.0, y: 0.0, width: imageViewDimension, height: imageViewDimension)
         imageHoldingView.backgroundColor = UIColor.black
         imageView.center = imageHoldingView.center
+        // starting point, used y coordinate in X to prevent it from appearing in the landscape orientation
         imageHoldingView.center = CGPoint(x: view.center.y - view.frame.width, y: view.center.y)
         view.bringSubviewToFront(imageHoldingView)
         UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: [], animations: {
             self.imageHoldingView.center = self.view.center
         })
         UIView.animate(withDuration: 0.4, delay: 2, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: [], animations: {
+            // ending point
             self.imageHoldingView.center = CGPoint(x: self.view.center.x + self.view.frame.width, y: self.view.center.y)
         })
     }
     
+    // play a sound using the filename passed as a parameter
     func play(sound: String) {
         let soundURL = Bundle.main.url(forResource: sound, withExtension: "wav")
         do {
@@ -89,21 +98,27 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
     
     // rewarding moves counter
     func updateMoveCounter(isItCorrect: Bool) {
+        // increase the number of moves
         moves += 1
+        // check if the move is correct
         if isItCorrect == false {
+            //reseting the scoring reward and remove a point
             scoringreward = 0
             if score > 0 {
                 score -= 1
             }
         } else {
+            // incrementing the scoring reward and updating the score
             scoringreward += 1
             score += scoringreward
         }
+        // update the score label
         movesCounter.text = String(format: "%03d", score)
     }
     
-    // function to resize the passed image to prevent slices from being clipped when populated in the tiles
+    // function to resize the passed image to prevent slices from being croped out when populated in the tiles, the new image will be passed to sliceImage() func
     func reSize(image: UIImage, newWidth: CGFloat) -> UIImage? {
+        // the new width is the grid view width
         let scale = newWidth / image.size.width
         let newHeight = image.size.height * scale
         UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
@@ -113,6 +128,7 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
         return newImage
     }
     
+    // Function to make Buttons rounded, by creating an object from sructure model and call its method
     func rounded(button: UIButton) {
         var roundedButton = RoundedButton()
         roundedButton.setButton(button)
@@ -135,10 +151,11 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
     // function to slice the game image into 16 slices
     func sliceImage(image: UIImage) {
         let imageToSlice = image
+        // width and height of each slice
         let width = imageToSlice.size.width/4
         let height = imageToSlice.size.height/4
         // Create a scale conversion factor to convert from points to pixles
-        let scale = (imageToSlice.scale)
+        let scale = imageToSlice.scale
         for y in 0..<4 {
             for x in 0..<4 {
                 UIGraphicsBeginImageContext(CGSize(width: width, height: height))
@@ -151,7 +168,7 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
         createTiles()
     }
     
-    // function to create tiles that holds the 16 slices of the game image
+    // function to create tiles (imageviews) that holds the 16 slices of the game image
     func createTiles() {
         let numberOfTiles            = 16
         let tileSideDimension        = gridView.frame.height / 4
@@ -192,22 +209,28 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
     // global var to hold the initial position of the sliced game image view
     private var initialImageViewOffset = CGPoint()
     @objc func moveImage(_ sender: UIPanGestureRecognizer) {
+        // bring the tile to the front of the view so it doesn't disappear behind other views when moving
         sender.view?.superview?.bringSubviewToFront(sender.view!)
         let translation = sender.translation(in: sender.view?.superview)
         if sender.state == .began {
             initialImageViewOffset = (sender.view?.frame.origin)!
         }
         let position = CGPoint(x: translation.x + initialImageViewOffset.x - (sender.view?.frame.origin.x)!, y: translation.y + initialImageViewOffset.y - (sender.view?.frame.origin.y)!)
+        // convert the position to the containing view so we can compare coordinates in the same view with grid locations
         let postionInSuperView = sender.view?.convert(position, to: sender.view?.superview)
         sender.view?.transform = (sender.view?.transform.translatedBy(x: position.x, y: position.y))!
         if sender.state == .ended {
+            // getting the dropping position and pass to isTileNearGrid func to check if it's been dropped near any grid view locations
             let (nearTile, snapPosition) = isTileNearGrid(droppingPosition: postionInSuperView!)
             let t = sender.view as! TileAttributes
             if nearTile {
+                // if near then assing the origin of the slice image view to the location of the grid view that is near
                 sender.view?.frame.origin = gridLocations[snapPosition]
+                // play correct sound
                 if soundButton.isSelected != true {
                     play(sound: "correct")
                 }
+                // check if it's in the right position
                 if String(snapPosition) == t.accessibilityLabel {
                     t.isTileInCorrectLocation = true
                     updateMoveCounter(isItCorrect: true)
@@ -216,8 +239,10 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
                     updateMoveCounter(isItCorrect: false)
                 }
             } else {
+                // if not neat return it to its original location
                 sender.view?.frame.origin = t.originalTileLocation
                 t.isTileInCorrectLocation = false
+                // play wrong sound
                 if soundButton.isSelected != true {
                     play(sound: "wrong")
                 }
@@ -231,6 +256,7 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
             performSegue(withIdentifier: "goToCompleteShareViewController", sender: self)
         }
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToCompleteShareViewController" {
             let destination = segue.destination as! CompleteShareViewController
@@ -239,6 +265,7 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
             destination.score = score
         }
     }
+    
     func allTilesInCorrectPosition() -> Bool {
         for tile in tileViews {
             if tile.isTileInCorrectLocation == false {
@@ -248,30 +275,28 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
         return true
     }
     
+    // check if the dropped location of the image slice is near any of the grid view locations
     func isTileNearGrid(droppingPosition: CGPoint) -> (Bool,Int) {
         for x in 0..<gridLocations.count {
             let gridlocation = gridLocations[x]
-            var fromX = droppingPosition.x
-            var toX = gridlocation.x
-            var fromY = droppingPosition.y
-            var toY = gridlocation.y
-            if droppingPosition.x > gridlocation.x {
-                fromX = gridlocation.x
-                toX   = droppingPosition.x
-            }
-            if droppingPosition.y > gridlocation.y {
-                fromY = gridlocation.y
-                toY   = droppingPosition.y
-            }
-            let distance = (fromX - toX) * (fromX - toX) + (fromY - toY) * (fromY - toY)
+            let fromX = droppingPosition.x
+            let toX = gridlocation.x
+            let fromY = droppingPosition.y
+            let toY = gridlocation.y
+            let area = (fromX - toX) * (fromX - toX) + (fromY - toY) * (fromY - toY)
             let halfTileSideSize = (gridView.frame.height / 4) / 2
-            if distance < halfTileSideSize * halfTileSideSize {
+            // comparing areas
+            if area < halfTileSideSize * halfTileSideSize {
+                // return the index of which that is near and return true
                 return(true, x)
             }
         }
+        // put 50 just for the sake of returning an Int
         return(false, 50)
     }
     
+    // get grid view tiles locations and convert it to the containing view(superview)
+    private var locationInSuperview = CGPoint()
     func getGridLocations() {
         let width  = gridView.frame.width / 4
         let height = gridView.frame.height / 4
@@ -279,13 +304,10 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
             for x in 0..<4 {
                 UIGraphicsBeginImageContextWithOptions(CGSize(width: width, height: height), false, 0)
                 let location            = CGPoint.init(x: CGFloat(x) * width, y: CGFloat(y) * height)
-                let locationInSuperview = gridView.convert(location, to: gridView.superview)
+                locationInSuperview = gridView.convert(location, to: gridView.superview)
                 gridLocations.append(locationInSuperview)
             }
         }
     }
-    
-    
-    
 
 }
