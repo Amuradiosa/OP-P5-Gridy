@@ -25,6 +25,6 @@ class DrawingRenderer: GridDrawer {
         }
         thisView.image = image
     }
-
+    
 }
 

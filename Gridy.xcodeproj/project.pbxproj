@@ -28,6 +28,7 @@
 		1515442D230B3891005DFFB0 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		151DB45A22F0BBE100BF8EE5 /* DrawingRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingRenderer.swift; sourceTree = "<group>"; };
 		151DB45C22F0BD2000BF8EE5 /* GridDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridDrawer.swift; sourceTree = "<group>"; };
+		1539FE46243DD05100F017C2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		15682A4B22D3313800116BEB /* TileAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileAttributes.swift; sourceTree = "<group>"; };
 		15682A4E22DF24F500116BEB /* wrong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = wrong.wav; sourceTree = "<group>"; };
 		15682A5022DF25B400116BEB /* correct.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = correct.wav; sourceTree = "<group>"; };
@@ -77,6 +78,7 @@
 		158C7B9122AA759500C83CFE = {
 			isa = PBXGroup;
 			children = (
+				1539FE46243DD05100F017C2 /* README.md */,
 				158C7B9C22AA759500C83CFE /* Gridy */,
 				1571F60822B9275F009BDBC2 /* Supporting files */,
 				158C7BA922AA759700C83CFE /* Info.plist */,

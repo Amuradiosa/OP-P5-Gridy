@@ -116,7 +116,7 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
         movesCounter.text = String(format: "%03d", score)
     }
     
-    // function to resize the passed image to prevent slices from being croped out when populated in the tiles, the new image will be passed to sliceImage() func
+    // function to resize the passed image to prevent slices from being croped out when populated in the tiles, the new resized image will be passed to sliceImage() func
     func reSize(image: UIImage, newWidth: CGFloat) -> UIImage? {
         // the new width is the grid view width
         let scale = newWidth / image.size.width
@@ -140,13 +140,43 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
         drawGridIn.drawingOn(thisView: gridView)
         rounded(button: newGameButton)
         sliceImage(image: reSize(image: gameImage, newWidth: gridView.frame.width)!)
-        getGridLocations()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        getGridLocations()
+    }
+    
+    // FIXME: - handling orientation changes(Add changes to func getLocations so it can kinda swap Xs for Ys for the landscape orientation
+//    private var windowInterfaceOrientation: UIInterfaceOrientation? {
+//        if #available(iOS 13.0, *) {
+//            return UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
+//        } else {
+//            // Fallback on earlier versions
+//            return nil
+//        }
+//    }
+//
+//    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+//        super.willTransition(to: newCollection, with: coordinator)
+//        coordinator.animate(alongsideTransition: { (context) in
+//            guard let windowInterfaceOrientation = self.windowInterfaceOrientation else { return }
+//
+//            if windowInterfaceOrientation.isLandscape {
+//                self.configure()
+//                self.getGridLocations()
+//            } else {
+//                self.configure()
+//                self.getGridLocations()
+//            }
+//        })
+//        }
+    
     
     // function to slice the game image into 16 slices
     func sliceImage(image: UIImage) {
@@ -239,7 +269,7 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, UINavig
                     updateMoveCounter(isItCorrect: false)
                 }
             } else {
-                // if not neat return it to its original location
+                // if not near return it to its original location
                 sender.view?.frame.origin = t.originalTileLocation
                 t.isTileInCorrectLocation = false
                 // play wrong sound

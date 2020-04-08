@@ -22,6 +22,7 @@ class TileAttributes: UIImageView, UIGestureRecognizerDelegate {
         
     }
     
+    // this a protocol that handles this mechanism of freeze-drying what's in interface builder resurrecting it when you app runs
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

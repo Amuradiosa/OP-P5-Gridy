@@ -42,6 +42,7 @@ class AdjustImageViewController: UIViewController, UIGestureRecognizerDelegate {
             if view.frame.width < view.frame.height {
                 // portrait orientation
                 let squareDimension = view.frame.width * 0.9
+
                 cropImageBoxView.frame = CGRect(x: (view.frame.width - squareDimension)/2, y: (view.frame.height - squareDimension)/2, width: squareDimension, height: squareDimension)
                 // calling the object method drawGrid to draw the grid
                 gridDrawer.drawGrid(context: ctx, squareDimension: squareDimension - 1)
