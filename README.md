@@ -67,7 +67,7 @@ Sharing the solved puzzle with friends
 </p><br/><br/>
 
 <p align="center">
-<img src="Images11.png" width="600">
+<img src="Images/11.png" width="600">
 </p><br/><br/>
 
 <p align="center">
